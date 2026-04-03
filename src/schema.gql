@@ -1,0 +1,551 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Constancia {
+  id_constancia: ID!
+  solicitante: String!
+  motivo: String!
+  folio: String!
+  expediente: Expediente!
+}
+
+type Empleado {
+  id_empleado: ID!
+  nombre: String!
+  ap_p: String!
+  ap_m: String!
+  area: String!
+  funcion: String!
+  usuario: Usuario!
+}
+
+type Detalle {
+  id_detalle: ID!
+  cantidad: String!
+  fecha: Date!
+  hora: Date!
+  pago: Pago!
+}
+
+type Pago {
+  id_pago: ID!
+  contribuyente: String!
+  servicio: Servicio!
+  detalle: Detalle!
+}
+
+type Servicio {
+  id_servicio: ID!
+  asesor: String!
+  documentacion: String!
+  medicion: String!
+  solicitudes: String!
+  usuario: Usuario!
+  pago: Pago!
+}
+
+type Usuario {
+  id_usuario: ID!
+  contrasena: String!
+  rol: String!
+  imagen: String!
+  expediente: Expediente!
+  empleado: Empleado!
+  ejidatario: Ejidatario!
+  servicio: Servicio!
+}
+
+type Expediente {
+  id_expediente: ID!
+  demandas: String!
+  actas: String!
+  constancia: Constancia!
+  usuario: Usuario!
+  cesion: Cesion!
+  deslinde: Deslinde!
+  certificado: Certificado!
+}
+
+type Deslinde {
+  id_deslinde: ID!
+  mapa: String!
+  superficie: Float!
+  expediente: Expediente!
+  parcela: Parcela!
+  derecho: Derecho!
+}
+
+type Estado {
+  id_estado: ID!
+  nombre: String!
+  territorio: String!
+  municipio: Municipio!
+}
+
+type Municipio {
+  id_municipio: ID!
+  referencia: String!
+  clave_inegi: String!
+  nombre: String!
+  territorio: String!
+  ejido: Ejido!
+  parcela: Parcela!
+  estado: Estado!
+}
+
+type Parcela {
+  id_parcela: ID!
+  tamano: String!
+  colindancias: String!
+  certificado: Certificado!
+  deslinde: Deslinde!
+  municipio: Municipio!
+  ejidatario: Ejidatario!
+  derecho: Derecho!
+}
+
+type Certificado {
+  id_certificado: ID!
+  No_certificado: String!
+  conformidad_parcelario: String!
+  folio: String!
+  ejidatario: Ejidatario!
+  parcela: Parcela!
+  expediente: Expediente!
+  ejido: Ejido!
+  derecho: Derecho!
+}
+
+type Ejidatario {
+  id_ejidatario: ID!
+  nombre: String!
+  ap_p: String!
+  ap_m: String!
+  estatus: String!
+  certificado: Certificado!
+  usuario: Usuario!
+  ejido: Ejido!
+  parcela: Parcela!
+}
+
+type Ejido {
+  id_ejido: ID!
+  superficie: String!
+  uso: String!
+  ejidatario: Ejidatario!
+  municipio: Municipio!
+  certificado: Certificado!
+  derecho: Derecho!
+}
+
+type Persona {
+  id_persona: ID!
+  nombre: String!
+  ap_p: String!
+  ap_m: String!
+  derecho: Derecho!
+}
+
+type Derecho {
+  id_derecho: ID!
+  acuerdos: String!
+  cesion: Cesion!
+  ejido: Ejido!
+  parcela: Parcela!
+  deslinde: Deslinde!
+  certificado: Certificado!
+  persona: Persona!
+}
+
+type Cesion {
+  id_cesion: ID!
+  titular: String!
+  cesionario: String!
+  testigos: String!
+  derecho: Derecho!
+  expediente: Expediente!
+}
+
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+type Query {
+  certificados: [Certificado!]!
+  certificadosP(page: Int = 1, limit: Int = 10): [Certificado!]!
+  certificado(id: Int!): Certificado!
+  cesiones: [Cesion!]!
+  cesionesP(page: Int = 1, limit: Int = 10): [Cesion!]!
+  cesion(id: Int!): Cesion!
+  constancias: [Constancia!]!
+  constanciasP(page: Int = 1, limit: Int = 10): [Constancia!]!
+  constancia(id: Int!): Constancia!
+  derechos: [Derecho!]!
+  derechosP(page: Int = 1, limit: Int = 10): [Derecho!]!
+  derecho(id: Int!): Derecho!
+  deslindes: [Deslinde!]!
+  deslindesP(page: Int = 1, limit: Int = 10): [Deslinde!]!
+  deslinde(id: Int!): Deslinde!
+  detalles: [Detalle!]!
+  detalle(id: Int!): Detalle!
+  ejidatarios: [Ejidatario!]!
+  ejidatariosP(page: Int = 1, limit: Int = 10): [Ejidatario!]!
+  ejidatario(id: Int!): Ejidatario!
+  ejidos: [Ejido!]!
+  ejido(id: Int!): Ejido!
+  empleados: [Empleado!]!
+  empleado(id: Int!): Empleado!
+  estados: [Estado!]!
+  estadosP(page: Int = 1, limit: Int = 10): [Estado!]!
+  estado(id: Int!): Estado!
+  expedientes: [Expediente!]!
+  expediente(id: Int!): Expediente!
+  municipios: [Municipio!]!
+  municipiosP(page: Int = 1, limit: Int = 10): [Municipio!]!
+  municipio(id: Int!): Municipio!
+  pagos: [Pago!]!
+  pagosP(page: Int = 1, limit: Int = 10): [Pago!]!
+  pago(id: Int!): Pago!
+  parcelas: [Parcela!]!
+  parcelasP(page: Int = 1, limit: Int = 10): [Parcela!]!
+  parcela(id: Int!): Parcela!
+  personas: [Persona!]!
+  persona(id: Int!): Persona!
+  servicios: [Servicio!]!
+  serviciosP(page: Int = 1, limit: Int = 10): [Servicio!]!
+  servicio(id: Int!): Servicio!
+  usuarios: [Usuario!]!
+  usuario(id: Int!): Usuario!
+}
+
+type Mutation {
+  createCertificado(input: CreateCertificadoInput!): Certificado!
+  updateCertificado(id: Int!, input: UpdateCertificadoInput!): Certificado!
+  removeCertificado(id: Int!): Boolean!
+  createCesion(input: CreateCesionInput!): Cesion!
+  updateCesion(id: Int!, input: UpdateCesionInput!): Cesion!
+  removeCesion(id: Int!): Boolean!
+  createConstancia(input: CreateConstanciaInput!): Constancia!
+  updateConstancia(id: Int!, input: UpdateConstanciaInput!): Constancia!
+  removeConstancia(id: Int!): Boolean!
+  createDerecho(input: CreateDerechoInput!): Derecho!
+  updateDerecho(id: Int!, input: UpdateDerechoInput!): Derecho!
+  removeDerecho(id: Int!): Boolean!
+  createDeslinde(input: CreateDeslindeInput!): Deslinde!
+  updateDeslinde(id: Int!, input: UpdateDeslindeInput!): Deslinde!
+  removeDeslinde(id: Int!): Boolean!
+  createDetalle(createDetalleInput: CreateDetalleInput!): Detalle!
+  updateDetalle(id: Int!, updateDetalleInput: UpdateDetalleInput!): Detalle!
+  removeDetalle(id: Int!): Detalle!
+  createEjidatario(input: CreateEjidatarioInput!): Ejidatario!
+  updateEjidatario(id: Int!, input: UpdateEjidatarioInput!): Ejidatario!
+  removeEjidatario(id: Int!): Boolean!
+  createEjido(createEjidoInput: CreateEjidoInput!): Ejido!
+  updateEjido(id: Int!, updateEjidoInput: UpdateEjidoInput!): Ejido!
+  removeEjido(id: Int!): Ejido!
+  createEmpleado(createEmpleadoInput: CreateEmpleadoInput!): Empleado!
+  updateEmpleado(updateEmpleadoInput: UpdateEmpleadoInput!): Empleado!
+  removeEmpleado(id: Int!): String!
+  createEstado(input: CreateEstadoInput!): Estado!
+  updateEstado(id: Int!, input: UpdateEstadoInput!): Estado!
+  removeEstado(id: Int!): Boolean!
+  createExpediente(createExpedienteInput: CreateExpedienteInput!): Expediente!
+  updateExpediente(id: Int!, updateExpedienteInput: UpdateExpedienteInput!): Expediente!
+  removeExpediente(id: Int!): Expediente!
+  createMunicipio(input: CreateMunicipioInput!): Municipio!
+  updateMunicipio(id: Int!, input: UpdateMunicipioInput!): Municipio!
+  removeMunicipio(id: Int!): Boolean!
+  createPago(input: CreatePagoInput!): Pago!
+  updatePago(id: Int!, input: UpdatePagoInput!): Pago!
+  removePago(id: Int!): Boolean!
+  createParcela(input: CreateParcelaInput!): Parcela!
+  updateParcela(id: Int!, input: UpdateParcelaInput!): Parcela!
+  removeParcela(id: Int!): Boolean!
+  createPersona(createPersonaInput: CreatePersonaInput!): Persona!
+  updatePersona(id: Int!, updatePersonaInput: UpdatePersonaInput!): Persona!
+  removePersona(id: Int!): Boolean!
+  createServicio(input: CreateServicioInput!): Servicio!
+  updateServicio(id: Int!, input: UpdateServicioInput!): Servicio!
+  removeServicio(id: Int!): Boolean!
+  createUsuario(createUsuarioInput: CreateUsuarioInput!): Usuario!
+  updateUsuario(id: Int!, updateUsuarioInput: UpdateUsuarioInput!): Usuario!
+  removeUsuario(id: Int!): Boolean!
+}
+
+input CreateCertificadoInput {
+  parcela_id: Int!
+  ejidatario_id: Int!
+  No_certificado: String!
+  conformidad_parcelario: String!
+  folio: String!
+}
+
+input UpdateCertificadoInput {
+  parcela_id: Int
+  ejidatario_id: Int
+  No_certificado: String
+  conformidad_parcelario: String
+  folio: String
+  id_certificado: ID!
+}
+
+input CreateCesionInput {
+  id_cesion_derechos: Int!
+  fecha: Date!
+  titular: String!
+  cesionario: String!
+  testigos: String!
+}
+
+input UpdateCesionInput {
+  id_cesion_derechos: Int
+  fecha: Date
+  titular: String
+  cesionario: String
+  testigos: String
+  id_cesion: ID!
+}
+
+input CreateConstanciaInput {
+  id_constancias: Int!
+  solicitante: String!
+  motivo: String!
+  folio: String!
+}
+
+input UpdateConstanciaInput {
+  id_constancias: Int
+  solicitante: String
+  motivo: String
+  folio: String
+  id_constancia: ID!
+}
+
+input CreateDerechoInput {
+  cesion_id: Int!
+  ejido_id: Int!
+  parcela_id: Int!
+  deslinde_id: Int!
+  certificado_id: Int!
+  persona_id: Int!
+  acuerdos: String!
+}
+
+input UpdateDerechoInput {
+  cesion_id: Int
+  ejido_id: Int
+  parcela_id: Int
+  deslinde_id: Int
+  certificado_id: Int
+  persona_id: Int
+  acuerdos: String
+  id_derecho: ID!
+}
+
+input CreateDeslindeInput {
+  parcela_id: Int!
+  mapa: String!
+  superficie: Float!
+  colindantes: String!
+  fecha: Date!
+}
+
+input UpdateDeslindeInput {
+  parcela_id: Int
+  mapa: String
+  superficie: Float
+  colindantes: String
+  fecha: Date
+  id_deslinde: ID!
+}
+
+input CreateDetalleInput {
+  cantidad: String!
+  cesionario: String!
+  hora: Date!
+  fecha: Date!
+}
+
+input UpdateDetalleInput {
+  parcela_id: Int
+  mapa: String
+  superficie: Float
+  colindantes: String
+  fecha: Date
+  id_detalle: ID!
+}
+
+input CreateEjidatarioInput {
+  parcela_id: Int!
+  nombre: String!
+  ap_p: String!
+  ap_m: String!
+  estatus: String!
+}
+
+input UpdateEjidatarioInput {
+  parcela_id: Int
+  nombre: String
+  ap_p: String
+  ap_m: String
+  estatus: String
+  id_ejidatario: ID!
+}
+
+input CreateEjidoInput {
+  ejidatario_id: Int!
+  municipio_id: Int!
+  certificado_id: Int!
+  superficie: String!
+  uso: String!
+}
+
+input UpdateEjidoInput {
+  ejidatario_id: Int
+  municipio_id: Int
+  certificado_id: Int
+  superficie: String
+  uso: String
+  id_ejido: ID!
+}
+
+input CreateEmpleadoInput {
+  nombre: String!
+  ap_p: String!
+  ap_m: String!
+  area: String!
+  funcion: String!
+}
+
+input UpdateEmpleadoInput {
+  nombre: String
+  ap_p: String
+  ap_m: String
+  area: String
+  funcion: String
+  id_empleado: ID!
+}
+
+input CreateEstadoInput {
+  nombre: String!
+  territorio: String!
+}
+
+input UpdateEstadoInput {
+  nombre: String
+  territorio: String
+  id_estado: ID!
+}
+
+input CreateExpedienteInput {
+  usuario_id: Int!
+  cesion_id: Int!
+  constancia_id: Int!
+  deslinde_id: Int!
+  certificado_id: Int!
+  demandas: String!
+  actas: String!
+}
+
+input UpdateExpedienteInput {
+  usuario_id: Int
+  cesion_id: Int
+  constancia_id: Int
+  deslinde_id: Int
+  certificado_id: Int
+  demandas: String
+  actas: String
+  id_expediente: ID!
+}
+
+input CreateMunicipioInput {
+  estado_id: Int!
+  clave_inegi: String!
+  nombre: String!
+  superficie: String!
+  referencias: String!
+}
+
+input UpdateMunicipioInput {
+  estado_id: Int
+  clave_inegi: String
+  nombre: String
+  superficie: String
+  referencias: String
+  id_municipio: ID!
+}
+
+input CreatePagoInput {
+  detalle_id: Int!
+  contribuyente: String!
+}
+
+input UpdatePagoInput {
+  detalle_id: Int
+  contribuyente: String
+  id_pago: ID!
+}
+
+input CreateParcelaInput {
+  ejidatario_id: Int!
+  municipio_id: Int!
+  tamano: String!
+  colindancias: String!
+}
+
+input UpdateParcelaInput {
+  ejidatario_id: Int
+  municipio_id: Int
+  tamano: String
+  colindancias: String
+  id_parcela: ID!
+}
+
+input CreatePersonaInput {
+  nombre: String!
+  ap_p: String!
+  ap_m: String!
+}
+
+input UpdatePersonaInput {
+  nombre: String
+  ap_p: String
+  ap_m: String
+  id_persona: ID!
+}
+
+input CreateServicioInput {
+  pago_id: Int!
+  Asesoria: String!
+  medicion: String!
+  solicitudes: String!
+}
+
+input UpdateServicioInput {
+  pago_id: Int
+  Asesoria: String
+  medicion: String
+  solicitudes: String
+  id_servicio: ID!
+}
+
+input CreateUsuarioInput {
+  empleado_id: Int!
+  ejidatario_id: Int!
+  servicio_id: Int!
+  contrasena: String!
+  rol: String!
+  imagen: String!
+}
+
+input UpdateUsuarioInput {
+  empleado_id: Int
+  ejidatario_id: Int
+  servicio_id: Int
+  contrasena: String
+  rol: String
+  imagen: String
+  id_usuario: ID!
+}

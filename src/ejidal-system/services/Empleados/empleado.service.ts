@@ -1,0 +1,53 @@
+
+import {Injectable, NotFoundException} from '@nestjs/common';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Repository} from 'typeorm';
+import { Empleado } from '../../entities/empleados/empleados.entity';
+import { CreateEmpleadoInput } from '../../dtos/empleados/create-empleados.input';
+import { UpdateEmpleadoInput } from '../../dtos/empleados/update-empleados.input';
+
+
+
+@Injectable()
+export class EmpleadoService {
+  constructor(
+    @InjectRepository(Empleado)
+    private repository: Repository<Empleado>
+  ) {}
+
+  async create(data: CreateEmpleadoInput): Promise<Empleado> {
+    const register = this.repository.create(data);
+    return await this.repository.save(register);
+  }
+
+  async findAll(): Promise<Empleado[]> {
+    return await this.repository.find();
+  }
+
+  async findAllPaginate(page: number = 1, limit: number = 10): Promise<Empleado[]> {
+    const skip = (page - 1) * limit;
+    return await this.repository.find({
+      skip,
+      take: limit,
+      order: {id_empleado: 'ASC'},
+    });
+  }
+
+  async findOne(id_empleado: number): Promise<Empleado | null> {
+    return await this.repository.findOneBy({id_empleado});
+  }
+
+  async update(id_empleado: number, data: UpdateEmpleadoInput): Promise<Empleado> {
+    data.id_empleado = id_empleado;
+    const register = await this.repository.preload(data);
+    if (!register) {
+      throw new NotFoundException(`Register with id_empleado: ${id_empleado} not found`);
+    }
+    return this.repository.save(register);
+  }
+
+  async remove(id_empleado: number): Promise<boolean> {
+    const result = await this.repository.delete({id_empleado});
+    return result.affected ? result.affected > 0 : false;
+  }
+}
