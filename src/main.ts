@@ -1,19 +1,16 @@
-import {NestFactory} from '@nestjs/core';
-import {AppModule} from './app.module';
-import {json, urlencoded} from 'body-parser';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
 
-const SistemaEjidal = async () => {
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  
+  // ✨ ESTA LÍNEA ES LA MAGIA QUE PERMITE QUE REACT SE CONECTE ✨
   app.enableCors({
-    origin: '*',
+    origin: '*', // En producción aquí pondrías la URL real de tu página
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
-  app.use(json({limit: "100mb"}));
-
-  app.use(urlencoded({limit: '100mb', extended: true}));
 
   await app.listen(3000);
 }
-
-SistemaEjidal();
+bootstrap();

@@ -1,13 +1,14 @@
-  import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { GraphQLAstExplorer, GraphQLModule, } from '@nestjs/graphql';
-import {ApolloDriver, ApolloDriverConfig} from '@nestjs/apollo';
-import {join} from 'path';
-import {TypeOrmModule} from '@nestjs/typeorm';
-import {GraphQLDate} from 'graphql-scalars';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { GraphQLDate } from 'graphql-scalars';
 import { SistemaEjidatarioModule } from './ejidal-system/sistema-ejidatario.module';
-4
+// Asegúrate de que esta ruta sea correcta según donde guardaste tu AuthModule
+import { AuthModule } from './modules/auth/auth.module'; 
 
 @Module({
   imports: [
@@ -20,16 +21,19 @@ import { SistemaEjidatarioModule } from './ejidal-system/sistema-ejidatario.modu
       },
     }),
     TypeOrmModule.forRoot({
-      type: 'mariadb',  //pendiente
-      host: 'localhost', //pendiente
-      port: 3306, //pendiente
-      username: 'juanmecanico', //pendiente
-      password: '123', //pendiente
-      database: 'patito',  //pendiente
+      type: 'mariadb',  
+      host: 'localhost', 
+      port: 3306, 
+      username: 'juanmecanico', 
+      password: '123', 
+      database: 'patito',  
       synchronize: true,
       autoLoadEntities: true,
     }),
     SistemaEjidatarioModule,
+    
+    // ✨ AQUÍ ESTABA EL DETALLE: Faltaba registrar el AuthModule aquí ✨
+    AuthModule, 
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -47,6 +47,7 @@ type Servicio {
 
 type Usuario {
   id_usuario: ID!
+  nombre_usuario: String!
   contrasena: String!
   rol: String!
   imagen: String!
@@ -167,6 +168,11 @@ type Cesion {
   expediente: Expediente!
 }
 
+type LoginResponse {
+  token: String!
+  usuario: Usuario!
+}
+
 """
 A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
@@ -272,6 +278,7 @@ type Mutation {
   createUsuario(createUsuarioInput: CreateUsuarioInput!): Usuario!
   updateUsuario(id: Int!, updateUsuarioInput: UpdateUsuarioInput!): Usuario!
   removeUsuario(id: Int!): Boolean!
+  login(nombre_usuario: String!, contrasena: String!): LoginResponse!
 }
 
 input CreateCertificadoInput {
@@ -532,18 +539,14 @@ input UpdateServicioInput {
 }
 
 input CreateUsuarioInput {
-  empleado_id: Int!
-  ejidatario_id: Int!
-  servicio_id: Int!
+  nombre_usuario: String!
   contrasena: String!
   rol: String!
   imagen: String!
 }
 
 input UpdateUsuarioInput {
-  empleado_id: Int
-  ejidatario_id: Int
-  servicio_id: Int
+  nombre_usuario: String
   contrasena: String
   rol: String
   imagen: String

@@ -20,14 +20,18 @@ export class Usuario {
 
   @Field(() => String)
   @Column({ unique: true })
+  nombre_usuario: string;
+
+  @Field(() => String)
+  @Column({ unique: true })
   contrasena: string;
 
   @Field(() => String)
   @Column()
   rol: string;
-
+  
   @Field(() => String)
-  @Column()
+  @Column({ type: 'mediumtext' })
   imagen: string;
 
   @Field(() => Expediente)

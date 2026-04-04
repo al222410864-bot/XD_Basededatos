@@ -117,5 +117,10 @@ import {
     ServicioResolver,
     UsuarioResolver,
   ],
-})
+  exports: [UsuarioService]
+  
+}
+)
+
+
 export class SistemaEjidatarioModule {}
