@@ -10,51 +10,13 @@ type Constancia {
   expediente: Expediente!
 }
 
-type Empleado {
-  id_empleado: ID!
+type Persona {
+  id_persona: ID!
   nombre: String!
   ap_p: String!
   ap_m: String!
-  area: String!
-  funcion: String!
-  usuario: Usuario!
-}
-
-type Detalle {
-  id_detalle: ID!
-  cantidad: String!
-  fecha: Date!
-  hora: Date!
-  pago: Pago!
-}
-
-type Pago {
-  id_pago: ID!
-  contribuyente: String!
-  servicio: Servicio!
-  detalle: Detalle!
-}
-
-type Servicio {
-  id_servicio: ID!
-  asesor: String!
-  documentacion: String!
-  medicion: String!
-  solicitudes: String!
-  usuario: Usuario!
-  pago: Pago!
-}
-
-type Usuario {
-  id_usuario: ID!
-  nombre_usuario: String!
-  contrasena: String!
-  rol: String!
-  imagen: String!
+  derecho: Derecho!
   expediente: Expediente!
-  empleado: Empleado!
-  ejidatario: Ejidatario!
-  servicio: Servicio!
 }
 
 type Expediente {
@@ -62,7 +24,7 @@ type Expediente {
   demandas: String!
   actas: String!
   constancia: Constancia!
-  usuario: Usuario!
+  persona: Persona!
   cesion: Cesion!
   deslinde: Deslinde!
   certificado: Certificado!
@@ -118,6 +80,52 @@ type Certificado {
   derecho: Derecho!
 }
 
+type Empleado {
+  id_empleado: ID!
+  nombre: String!
+  ap_p: String!
+  ap_m: String!
+  area: String!
+  funcion: String!
+  usuario: Usuario!
+}
+
+type Detalle {
+  id_detalle: ID!
+  cantidad: String!
+  fecha: Date!
+  hora: Date!
+  pago: Pago!
+}
+
+type Pago {
+  id_pago: ID!
+  contribuyente: String!
+  servicio: Servicio!
+  detalle: Detalle!
+}
+
+type Servicio {
+  id_servicio: ID!
+  asesor: String!
+  documentacion: String!
+  medicion: String!
+  solicitudes: String!
+  usuario: Usuario!
+  pago: Pago!
+}
+
+type Usuario {
+  id_usuario: ID!
+  nombre_usuario: String!
+  contrasena: String!
+  rol: String!
+  imagen: String!
+  empleado: Empleado!
+  ejidatario: Ejidatario!
+  servicio: Servicio!
+}
+
 type Ejidatario {
   id_ejidatario: ID!
   nombre: String!
@@ -137,14 +145,6 @@ type Ejido {
   ejidatario: Ejidatario!
   municipio: Municipio!
   certificado: Certificado!
-  derecho: Derecho!
-}
-
-type Persona {
-  id_persona: ID!
-  nombre: String!
-  ap_p: String!
-  ap_m: String!
   derecho: Derecho!
 }
 
@@ -447,7 +447,7 @@ input UpdateEstadoInput {
 }
 
 input CreateExpedienteInput {
-  usuario_id: Int!
+  upersona_id: Int!
   cesion_id: Int!
   constancia_id: Int!
   deslinde_id: Int!
@@ -457,7 +457,7 @@ input CreateExpedienteInput {
 }
 
 input UpdateExpedienteInput {
-  usuario_id: Int
+  upersona_id: Int
   cesion_id: Int
   constancia_id: Int
   deslinde_id: Int

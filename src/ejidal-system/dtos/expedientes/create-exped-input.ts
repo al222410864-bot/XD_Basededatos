@@ -5,7 +5,7 @@ import { IsNotEmpty, IsNumber, IsString, } from "class-validator";
 export class CreateExpedienteInput {
   @Field(() => Int)
   @IsNumber()
-  usuario_id: number;
+  upersona_id: number;
 
   @Field(() => Int)
   @IsNumber()

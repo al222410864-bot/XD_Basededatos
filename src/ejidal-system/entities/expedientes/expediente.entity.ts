@@ -12,6 +12,7 @@ import { Usuario } from "../usuarios/usuarios.entity";
 import { Cesion } from "../cesion/cesion.entity";
 import { Deslinde } from "../deslindes/deslindes.entity";
 import { Certificado } from "../certificados/certificados.entity";
+import { Persona } from "../personas/personas.entity";
 
 
 @ObjectType()
@@ -34,10 +35,10 @@ export class Expediente {
   @JoinColumn ({name : 'id_constancia'})
   constancia: Constancia
 
-    @Field (() => Usuario)
-  @OneToMany (()=> Usuario, (usuario) =>usuario.expediente)
-  @JoinColumn ({name : 'id_usuario'})
-  usuario: Usuario
+    @Field (() => Persona)
+  @OneToMany (()=> Persona, (persona) =>persona.expediente)
+  @JoinColumn ({name : 'id_persona'})
+  persona: Persona
 
   @Field (() => Cesion)
   @OneToMany (()=> Cesion, (cesion) =>cesion.expediente)

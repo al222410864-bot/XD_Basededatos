@@ -34,10 +34,7 @@ export class Usuario {
   @Column({ type: 'mediumtext' })
   imagen: string;
 
-  @Field(() => Expediente)
-  @OneToMany(() => Expediente, (expediente) => expediente.usuario)
-  @JoinColumn({ name: 'id_constancia' })
-  expediente: Expediente;
+
 
   @Field(() => Empleado)
   @OneToMany(() => Empleado, (empleado) => empleado.usuario)
