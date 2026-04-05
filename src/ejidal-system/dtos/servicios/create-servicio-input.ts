@@ -21,6 +21,16 @@ export class CreateServicioInput {
   @IsString()
   @IsNotEmpty()
   solicitudes: string;
-  
+
+  @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  asesor: string;
+
+    @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  documentacion: string;
+
   //doc: ;
 }

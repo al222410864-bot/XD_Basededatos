@@ -22,37 +22,40 @@ export class Expediente {
   @PrimaryGeneratedColumn()
   id_expediente: number;
 
-  @Field(() => String)
-  @Column()
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'text', nullable: true })
   demandas: string;
-  
-  @Field(() => String)
-  @Column()
-  actas: Date;
 
-  @Field (() => Constancia)
-  @OneToMany (()=> Constancia, (constancia) =>constancia.expediente)
-  @JoinColumn ({name : 'id_constancia'})
+  // ✨ Tienes que agregar @Field() para que React pueda leerlo
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'text', nullable: true }) // Aprovechamos para dejarlo como texto, como arreglamos antes
+  actas: string;
+
+  @Field(() => Constancia)
+  @OneToMany(() => Constancia, (constancia) => constancia.expediente)
+  @JoinColumn({ name: 'id_constancia' })
   constancia: Constancia
 
-    @Field (() => Persona)
-  @OneToMany (()=> Persona, (persona) =>persona.expediente)
-  @JoinColumn ({name : 'id_persona'})
+  @Field(() => Persona)
+  @OneToMany(() => Persona, (persona) => persona.expediente)
+  @JoinColumn({ name: 'id_persona' })
   persona: Persona
 
-  @Field (() => Cesion)
-  @OneToMany (()=> Cesion, (cesion) =>cesion.expediente)
-  @JoinColumn ({name : 'id_cesion'})
+  @Field(() => Cesion)
+  @OneToMany(() => Cesion, (cesion) => cesion.expediente)
+  @JoinColumn({ name: 'id_cesion' })
   cesion: Cesion
 
-  @Field (() => Deslinde)
-  @OneToMany (()=> Deslinde, (deslinde) =>deslinde.expediente)
-  @JoinColumn ({name : 'id_deslinde'})
+  @Field(() => Deslinde)
+  @OneToMany(() => Deslinde, (deslinde) => deslinde.expediente)
+  @JoinColumn({ name: 'id_deslinde' })
   deslinde: Deslinde
 
-      @Field(() => Certificado)
-    @OneToMany(() => Certificado, (certificado) => certificado.expediente)
-    @JoinColumn({ name: "id_certificado" })
-    certificado: Certificado;
+  @Field(() => Certificado)
+  @OneToMany(() => Certificado, (certificado) => certificado.expediente)
+  @JoinColumn({ name: "id_certificado" })
+  certificado: Certificado;
+
+
 }
 

@@ -21,8 +21,8 @@ type Persona {
 
 type Expediente {
   id_expediente: ID!
-  demandas: String!
-  actas: String!
+  demandas: String
+  actas: String
   constancia: Constancia!
   persona: Persona!
   cesion: Cesion!
@@ -206,6 +206,7 @@ type Query {
   estados: [Estado!]!
   estadosP(page: Int = 1, limit: Int = 10): [Estado!]!
   estado(id: Int!): Estado!
+  expedientesP(page: Int = 1, limit: Int = 10): [Expediente!]!
   expedientes: [Expediente!]!
   expediente(id: Int!): Expediente!
   municipios: [Municipio!]!
@@ -215,7 +216,7 @@ type Query {
   pagosP(page: Int = 1, limit: Int = 10): [Pago!]!
   pago(id: Int!): Pago!
   parcelas: [Parcela!]!
-  parcelasP(page: Int = 1, limit: Int = 10): [Parcela!]!
+  parcelasPaginadas(page: Int! = 1, limit: Int! = 10): [Parcela!]!
   parcela(id: Int!): Parcela!
   personas: [Persona!]!
   persona(id: Int!): Persona!
@@ -528,6 +529,8 @@ input CreateServicioInput {
   Asesoria: String!
   medicion: String!
   solicitudes: String!
+  asesor: String!
+  documentacion: String!
 }
 
 input UpdateServicioInput {
@@ -535,6 +538,8 @@ input UpdateServicioInput {
   Asesoria: String
   medicion: String
   solicitudes: String
+  asesor: String
+  documentacion: String
   id_servicio: ID!
 }
 

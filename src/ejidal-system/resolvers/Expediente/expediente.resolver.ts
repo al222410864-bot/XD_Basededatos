@@ -7,7 +7,7 @@ import { UpdateExpedienteInput } from '../../dtos/expedientes/update-exped-input
 @Resolver(() => Expediente)
 export class ExpedienteResolver {
 
-  constructor(private readonly expedienteService: ExpedienteService) {}
+  constructor(private readonly expedienteService: ExpedienteService) { }
 
   // CREAR
   @Mutation(() => Expediente)
@@ -15,6 +15,14 @@ export class ExpedienteResolver {
     @Args('createExpedienteInput') createExpedienteInput: CreateExpedienteInput,
   ) {
     return this.expedienteService.create(createExpedienteInput);
+  }
+
+  @Query(() => [Expediente], { name: 'expedientesP' })
+  findAllPaginate(
+    @Args('page', { type: () => Int, nullable: true, defaultValue: 1 }) page: number,
+    @Args('limit', { type: () => Int, nullable: true, defaultValue: 10 }) limit: number,
+  ) {
+    return this.expedienteService.findAllPaginate(page, limit);
   }
 
   // OBTENER TODOS

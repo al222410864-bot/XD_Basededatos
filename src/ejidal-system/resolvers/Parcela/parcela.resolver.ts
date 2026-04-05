@@ -7,20 +7,24 @@ import { Parcela } from '../../entities/parcelas/parcelas.entity';
 @Resolver(() => Parcela)
 export class ParcelaResolver {
 
-  constructor(private readonly service: ParcelaService) {}
+
+
+  constructor(private readonly service: ParcelaService) { }
 
   @Query(() => [Parcela], { name: 'parcelas' })
   findAll() {
     return this.service.findAll();
   }
 
-  @Query(() => [Parcela], { name: 'parcelasP' })
+
+  @Query(() => [Parcela], { name: 'parcelasPaginadas' })
   findAllPaginate(
-    @Args('page', { type: () => Int, nullable: true, defaultValue: 1 }) page: number,
-    @Args('limit', { type: () => Int, nullable: true, defaultValue: 10 }) limit: number,
+    @Args('page', { type: () => Int, defaultValue: 1 }) page: number,
+    @Args('limit', { type: () => Int, defaultValue: 10 }) limit: number,
   ) {
     return this.service.findAllPaginate(page, limit);
   }
+
 
   @Query(() => Parcela, { name: 'parcela' })
   findOne(@Args('id', { type: () => Int }) id: number) {
