@@ -168,6 +168,63 @@ type Cesion {
   expediente: Expediente!
 }
 
+type PrediccionIngresosType {
+  mes_predicho: String!
+  monto_esperado: Float!
+  monto_historico: Float!
+  factor_alpha: Float!
+  confianza_pct: Float!
+  tendencia: Float!
+  varianza_historica: Float!
+  meses_analizados: Int!
+}
+
+type PrediccionDemandaServiciosType {
+  mes_predicho: String!
+  servicios_esperados: Int!
+  factor_alpha: Float!
+  tendencia: Float!
+  confianza_pct: Float!
+  crecimiento_pct: Float!
+  meses_analizados: Int!
+}
+
+type ResumenIngresosType {
+  total_ingresos: Float!
+  total_servicios: Int!
+  promedio_por_servicio: Float!
+  servicios_completados: Int!
+  servicios_pendientes: Int!
+}
+
+type IngresosPorMesType {
+  mes: String!
+  monto: Float!
+}
+
+type HistorialItem {
+  mes: String!
+  valor: Float!
+  tipo: String!
+}
+
+type PrediccionItem {
+  mes: String!
+  valor: Float!
+  rangoInferior: Float!
+  rangoSuperior: Float!
+}
+
+type PrediccionLaplaceResponse {
+  valorEsperado: Float!
+  porcentajeConfianza: Float!
+  periodo: String!
+  timestamp: String!
+  tendencia: String!
+  historial: [HistorialItem!]!
+  prediccion: PrediccionItem!
+}
+
 type LoginResponse {
   token: String!
   usuario: Usuario!
@@ -196,6 +253,18 @@ type Query {
   deslinde(id: Int!): Deslinde!
   detalles: [Detalle!]!
   detalle(id: Int!): Detalle!
+  helloDashboard: String!
+
+  """
+  Predice los ingresos del proximo mes usando Transformada de Laplace. s=0.15 -> alpha~0.861.
+  """
+  prediccionIngresosProximoMes(mesesHistorico: Int! = 8, factorS: Float! = 0.15): PrediccionIngresosType!
+
+  """Predice la demanda de servicios por tipo. s=0.18 -> alpha~0.835."""
+  prediccionDemandaServicios(mesesHistorico: Int! = 6, factorS: Float! = 0.18): [PrediccionDemandaServiciosType!]!
+  resumenIngresos: ResumenIngresosType!
+  ingresosPorMes(meses: Int! = 8): [IngresosPorMesType!]!
+  prediccionLaplace(tipo: String!): PrediccionLaplaceResponse!
   ejidatarios: [Ejidatario!]!
   ejidatariosP(page: Int = 1, limit: Int = 10): [Ejidatario!]!
   ejidatario(id: Int!): Ejidatario!

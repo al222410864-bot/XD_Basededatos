@@ -40,4 +40,7 @@ export class ServicioResolver {
   remove(@Args('id', { type: () => Int }) id: number) {
     return this.service.remove(id);
   }
+
+  
 }
+

@@ -38,6 +38,7 @@ import {
   PersonaService,
   ServicioService,
   UsuarioService,
+  DashboardService,
 } from './services';
 import {
   CertificadoResolver,
@@ -46,6 +47,7 @@ import {
   DerechoResolver,
   DeslindeResolver,
   DetallesResolver,
+  DashboardResolver,
   EjidatarioResolver,
   EjidoResolver,
   EmpleadosResolver,
@@ -88,6 +90,7 @@ import {
     DerechosService,
     DeslindeService,
     DetalleService,
+    DashboardService,
     EjidatarioService,
     EjidoService,
     EmpleadoService,
@@ -105,6 +108,7 @@ import {
     DerechoResolver,
     DeslindeResolver,
     DetallesResolver,
+    DashboardResolver,
     EjidatarioResolver,
     EjidoResolver,
     EmpleadosResolver,
@@ -117,10 +121,6 @@ import {
     ServicioResolver,
     UsuarioResolver,
   ],
-  exports: [UsuarioService]
-  
-}
-)
-
-
+  exports: [UsuarioService],
+})
 export class SistemaEjidatarioModule {}

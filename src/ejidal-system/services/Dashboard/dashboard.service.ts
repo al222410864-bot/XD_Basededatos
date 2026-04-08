@@ -1,11 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pago } from '../../entities/pagos/pagos.entity';
 import { Detalle } from '../../entities/detalles/detalles.entity';
-import { CreatePagoInput } from '../../dtos/pago/create-pago-input';
-import { UpdatePagoInput } from '../../dtos/pago/update-pago-input';
-
 function laplace(serie: number[], s: number) {
   const alpha = Math.exp(-s);
   let F = 0,
@@ -36,80 +33,33 @@ function laplace(serie: number[], s: number) {
     varianza: parseFloat(varianza.toFixed(4)),
   };
 }
-
 function siguienteMes(mes: string): string {
   const [y, m] = mes.split('-').map(Number);
   const siguiente = new Date(y, m, 1);
   return `${siguiente.getFullYear()}-${String(siguiente.getMonth() + 1).padStart(2, '0')}`;
 }
-
 function mesAnio(fecha: Date): string {
   return `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}`;
 }
-
 @Injectable()
-export class PagoService {
+export class DashboardService {
   constructor(
-    @InjectRepository(Pago)
-    private readonly repository: Repository<Pago>,
-    @InjectRepository(Detalle)
-    private readonly detalleRepo: Repository<Detalle>,
+    @InjectRepository(Pago) private pagoRepo: Repository<Pago>,
+    @InjectRepository(Detalle) private detalleRepo: Repository<Detalle>,
   ) {}
-
-  async findAll(): Promise<Pago[]> {
-    return await this.repository.find();
-  }
-
-  async findAllPaginate(page: number, limit: number): Promise<Pago[]> {
-    return await this.repository.find({
-      skip: (page - 1) * limit,
-      take: limit,
-    });
-  }
-
-  async findOne(id_pago: number): Promise<Pago> {
-    const pago = await this.repository.findOneBy({ id_pago });
-
-    if (!pago) {
-      throw new NotFoundException(`Pago con id ${id_pago} no encontrado`);
-    }
-
-    return pago;
-  }
-
-  async create(input: CreatePagoInput): Promise<Pago> {
-    const pago = this.repository.create(input);
-    return await this.repository.save(pago);
-  }
-
-  async update(id_pago: number, input: UpdatePagoInput): Promise<Pago> {
-    const pago = await this.findOne(id_pago);
-
-    Object.assign(pago, input);
-
-    return await this.repository.save(pago);
-  }
-
-  async remove(id_pago: number): Promise<boolean> {
-    const pago = await this.findOne(id_pago);
-
-    await this.repository.remove(pago);
-
-    return true;
-  }
-
   async prediccionIngresosProximoMes(mesesHistorico = 8, factorS = 0.15) {
+    const mesExpr = (alias: string, campo: string) =>
+      `TO_CHAR(${alias}.${campo}, 'YYYY-MM')`;
     const rows = await this.detalleRepo
       .createQueryBuilder('d')
       .innerJoin('d.pago', 'p')
-      .select("TO_CHAR(d.fecha, 'YYYY-MM')", 'mes')
+      .select(mesExpr('d', 'fecha'), 'mes')
       .addSelect('SUM(CAST(d.cantidad AS DECIMAL))', 'monto')
       .addSelect('COUNT(*)', 'servicios')
-      .groupBy("TO_CHAR(d.fecha, 'YYYY-MM')")
+      .groupBy(mesExpr('d', 'fecha'))
       .orderBy('mes', 'DESC')
       .limit(mesesHistorico)
       .getRawMany();
-
     if (!rows.length)
       return {
         mes_predicho: siguienteMes(mesAnio(new Date())),
@@ -121,16 +71,13 @@ export class PagoService {
         varianza_historica: 0,
         meses_analizados: 0,
       };
-
     const serieMontos = rows.map((r) => parseFloat(r.monto) || 0);
     const { prediccion, alpha, confianza_pct, tendencia, varianza } = laplace(
       serieMontos,
       factorS,
     );
-
     const montoHistorico =
       serieMontos.reduce((a, b) => a + b, 0) / serieMontos.length;
-
     return {
       mes_predicho: siguienteMes(rows[0].mes),
       monto_esperado: prediccion,
@@ -142,7 +89,6 @@ export class PagoService {
       meses_analizados: rows.length,
     };
   }
-
   async resumenIngresos() {
     const [totalIngresos, totalServicios, promPorServicio] = await Promise.all([
       this.detalleRepo
@@ -157,7 +103,6 @@ export class PagoService {
         .select('AVG(CAST(d.cantidad AS DECIMAL))', 'promedio')
         .getRawOne(),
     ]);
-
     return {
       total_ingresos: parseFloat(totalIngresos?.total || 0),
       total_servicios: totalServicios,
@@ -166,7 +111,6 @@ export class PagoService {
       servicios_pendientes: 0,
     };
   }
-
   async ingresosPorMes(meses = 8) {
     const rows = await this.detalleRepo
       .createQueryBuilder('d')
@@ -178,7 +122,6 @@ export class PagoService {
       .orderBy('mes', 'DESC')
       .limit(meses)
       .getRawMany();
-
     return rows.map((r) => ({
       mes: r.mes,
       monto: parseFloat(r.monto) || 0,
@@ -187,17 +130,17 @@ export class PagoService {
   }
 
   async prediccionLaplace(tipo: string) {
-    const query = `
-      SELECT 
-        TO_CHAR(d.fecha, 'YYYY-MM') as mes,
-        SUM(CAST(d.cantidad AS DECIMAL)) as monto
-      FROM detalles d
-      GROUP BY TO_CHAR(d.fecha, 'YYYY-MM')
-      ORDER BY mes DESC
-      LIMIT 12
-    `;
-
-    const rows = await this.detalleRepo.query(query, [tipo]);
+    const rows = await this.detalleRepo
+      .createQueryBuilder('d')
+      .innerJoin('d.pago', 'p')
+      .innerJoin('d.servicio', 's')
+      .select("TO_CHAR(d.fecha, 'YYYY-MM')", 'mes')
+      .addSelect('SUM(CAST(d.cantidad AS DECIMAL))', 'monto')
+      .where('s.tipo = :tipo', { tipo })
+      .groupBy("TO_CHAR(d.fecha, 'YYYY-MM')")
+      .orderBy('mes', 'DESC')
+      .limit(12)
+      .getRawMany();
 
     if (!rows.length) {
       const now = new Date();
