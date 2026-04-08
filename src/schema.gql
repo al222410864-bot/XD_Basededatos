@@ -372,8 +372,8 @@ input UpdateDeslindeInput {
 input CreateDetalleInput {
   cantidad: String!
   cesionario: String!
-  hora: Date!
-  fecha: Date!
+  hora: String!
+  fecha: String!
 }
 
 input UpdateDetalleInput {

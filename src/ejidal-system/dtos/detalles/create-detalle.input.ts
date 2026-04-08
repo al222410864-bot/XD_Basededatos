@@ -13,13 +13,13 @@ export class CreateDetalleInput {
   @IsNotEmpty()
   cesionario: string;
 
-  @Field(() => Date)
+  @Field(() => String)
   @IsDate()
   @IsNotEmpty()
-  hora: Date;
+  hora: string;
 
-  @Field(() => Date)
+  @Field(() => String)
   @IsDate()
   @IsNotEmpty()
-  fecha: number;
+  fecha: string;
 }

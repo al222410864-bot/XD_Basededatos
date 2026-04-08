@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@apollo/client": "^4.1.6",
     "@apollo/server": "^5.4.0",
     "@as-integrations/express5": "^1.1.2",
     "@nestjs/apollo": "^13.2.4",
@@ -38,7 +39,7 @@
     "cache-manager-ioredis": "^2.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.4",
-    "graphql": "^16.13.1",
+    "graphql": "^16.13.2",
     "graphql-scalars": "^1.25.0",
     "helmet": "^8.1.0",
     "ioredis": "^5.10.0",
