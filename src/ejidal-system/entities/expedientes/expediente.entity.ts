@@ -5,18 +5,17 @@ import {
   OneToOne,
   OneToMany,
   JoinColumn,
-} from "typeorm";
-import { ObjectType, Field, ID } from "@nestjs/graphql";
-import { Constancia } from "../constancias/constancias.entity";
-import { Usuario } from "../usuarios/usuarios.entity";
-import { Cesion } from "../cesion/cesion.entity";
-import { Deslinde } from "../deslindes/deslindes.entity";
-import { Certificado } from "../certificados/certificados.entity";
-import { Persona } from "../personas/personas.entity";
-
+} from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Constancia } from '../constancias/constancias.entity';
+import { Usuario } from '../usuarios/usuarios.entity';
+import { Cesion } from '../cesion/cesion.entity';
+import { Deslinde } from '../deslindes/deslindes.entity';
+import { Certificado } from '../certificados/certificados.entity';
+import { Persona } from '../personas/personas.entity';
 
 @ObjectType()
-@Entity("expedientes")
+@Entity('expedientes')
 export class Expediente {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -26,36 +25,27 @@ export class Expediente {
   @Column({ type: 'text', nullable: true })
   demandas: string;
 
-  // ✨ Tienes que agregar @Field() para que React pueda leerlo
   @Field(() => String, { nullable: true })
-  @Column({ type: 'text', nullable: true }) // Aprovechamos para dejarlo como texto, como arreglamos antes
+  @Column({ type: 'text', nullable: true })
   actas: string;
 
-  @Field(() => Constancia)
+  @Field(() => [Constancia])
   @OneToMany(() => Constancia, (constancia) => constancia.expediente)
-  @JoinColumn({ name: 'id_constancia' })
-  constancia: Constancia
+  constancia: Constancia[];
 
-  @Field(() => Persona)
+  @Field(() => [Persona])
   @OneToMany(() => Persona, (persona) => persona.expediente)
-  @JoinColumn({ name: 'id_persona' })
-  persona: Persona
+  persona: Persona[];
 
-  @Field(() => Cesion)
+  @Field(() => [Cesion])
   @OneToMany(() => Cesion, (cesion) => cesion.expediente)
-  @JoinColumn({ name: 'id_cesion' })
-  cesion: Cesion
+  cesion: Cesion[];
 
-  @Field(() => Deslinde)
+  @Field(() => [Deslinde])
   @OneToMany(() => Deslinde, (deslinde) => deslinde.expediente)
-  @JoinColumn({ name: 'id_deslinde' })
-  deslinde: Deslinde
+  deslinde: Deslinde[];
 
-  @Field(() => Certificado)
+  @Field(() => [Certificado])
   @OneToMany(() => Certificado, (certificado) => certificado.expediente)
-  @JoinColumn({ name: "id_certificado" })
-  certificado: Certificado;
-
-
+  certificado: Certificado[];
 }
-

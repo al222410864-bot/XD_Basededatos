@@ -3,14 +3,14 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToOne,
-  OneToMany,
   JoinColumn,
-} from "typeorm";
-import { ObjectType, Field, ID } from "@nestjs/graphql";
-import { Usuario } from "../usuarios/usuarios.entity";
+  ManyToOne,
+} from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Usuario } from '../usuarios/usuarios.entity';
 
 @ObjectType()
-@Entity("empleados")
+@Entity('empleados')
 export class Empleado {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -19,7 +19,7 @@ export class Empleado {
   @Field(() => String)
   @Column()
   nombre: string;
-  
+
   @Field(() => String)
   @Column()
   ap_p: string;
@@ -36,11 +36,8 @@ export class Empleado {
   @Column()
   funcion: string;
 
-    @Field (() => Usuario)
-      @OneToMany (()=> Usuario, (usuario) =>usuario.empleado)
-      @JoinColumn ({name : 'id_usuario'})
-      usuario: Usuario
+  @Field(() => Usuario)
+  @ManyToOne(() => Usuario, (usuario) => usuario.empleado)
+  @JoinColumn({ name: 'id_usuario' })
+  usuario: Usuario;
 }
-
-
-

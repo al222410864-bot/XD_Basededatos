@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { DetalleService } from '../../services/Detalles/destalle.service';
+import { DetalleService } from '../../services/Detalles/detalle.service';
 import { Detalle } from '../../entities/detalles/detalles.entity';
 import { CreateDetalleInput } from '../../dtos/detalles/create-detalle.input';
 import { UpdateDetalleInput } from '../../dtos/detalles/update-detalle.input';

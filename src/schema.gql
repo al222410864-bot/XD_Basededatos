@@ -15,19 +15,19 @@ type Persona {
   nombre: String!
   ap_p: String!
   ap_m: String!
-  derecho: Derecho!
-  expediente: Expediente!
+  derecho: [Derecho!]!
+  expediente: [Expediente!]!
 }
 
 type Expediente {
   id_expediente: ID!
   demandas: String
   actas: String
-  constancia: Constancia!
-  persona: Persona!
-  cesion: Cesion!
-  deslinde: Deslinde!
-  certificado: Certificado!
+  constancia: [Constancia!]!
+  persona: [Persona!]!
+  cesion: [Cesion!]!
+  deslinde: [Deslinde!]!
+  certificado: [Certificado!]!
 }
 
 type Deslinde {
@@ -36,14 +36,14 @@ type Deslinde {
   superficie: Float!
   expediente: Expediente!
   parcela: Parcela!
-  derecho: Derecho!
+  derecho: [Derecho!]!
 }
 
 type Estado {
   id_estado: ID!
   nombre: String!
   territorio: String!
-  municipio: Municipio!
+  municipio: [Municipio!]!
 }
 
 type Municipio {
@@ -52,8 +52,8 @@ type Municipio {
   clave_inegi: String!
   nombre: String!
   territorio: String!
-  ejido: Ejido!
-  parcela: Parcela!
+  ejido: [Ejido!]!
+  parcela: [Parcela!]!
   estado: Estado!
 }
 
@@ -61,11 +61,11 @@ type Parcela {
   id_parcela: ID!
   tamano: String!
   colindancias: String!
-  certificado: Certificado!
-  deslinde: Deslinde!
+  certificado: [Certificado!]!
+  deslinde: [Deslinde!]!
   municipio: Municipio!
   ejidatario: Ejidatario!
-  derecho: Derecho!
+  derecho: [Derecho!]!
 }
 
 type Certificado {
@@ -74,10 +74,10 @@ type Certificado {
   conformidad_parcelario: String!
   folio: String!
   ejidatario: Ejidatario!
-  parcela: Parcela!
-  expediente: Expediente!
+  parcela: [Parcela!]!
+  expediente: [Expediente!]!
   ejido: Ejido!
-  derecho: Derecho!
+  derecho: [Derecho!]!
 }
 
 type Empleado {
@@ -102,7 +102,7 @@ type Pago {
   id_pago: ID!
   contribuyente: String!
   servicio: Servicio!
-  detalle: Detalle!
+  detalle: [Detalle!]!
 }
 
 type Servicio {
@@ -112,7 +112,7 @@ type Servicio {
   medicion: String!
   solicitudes: String!
   usuario: Usuario!
-  pago: Pago!
+  pago: [Pago!]!
 }
 
 type Usuario {
@@ -123,7 +123,7 @@ type Usuario {
   imagen: String!
   empleado: Empleado!
   ejidatario: Ejidatario!
-  servicio: Servicio!
+  servicio: [Servicio!]!
 }
 
 type Ejidatario {
@@ -135,28 +135,28 @@ type Ejidatario {
   certificado: Certificado!
   usuario: Usuario!
   ejido: Ejido!
-  parcela: Parcela!
+  parcela: [Parcela!]!
 }
 
 type Ejido {
   id_ejido: ID!
   superficie: String!
   uso: String!
-  ejidatario: Ejidatario!
+  ejidatario: [Ejidatario!]!
   municipio: Municipio!
-  certificado: Certificado!
-  derecho: Derecho!
+  certificado: [Certificado!]!
+  derecho: [Derecho!]!
 }
 
 type Derecho {
   id_derecho: ID!
   acuerdos: String!
-  cesion: Cesion!
-  ejido: Ejido!
-  parcela: Parcela!
-  deslinde: Deslinde!
-  certificado: Certificado!
-  persona: Persona!
+  cesion: [Cesion!]!
+  ejido: [Ejido!]!
+  parcela: [Parcela!]!
+  deslinde: [Deslinde!]!
+  certificado: [Certificado!]!
+  persona: [Persona!]!
 }
 
 type Cesion {
@@ -164,7 +164,7 @@ type Cesion {
   titular: String!
   cesionario: String!
   testigos: String!
-  derecho: Derecho!
+  derecho: [Derecho!]!
   expediente: Expediente!
 }
 

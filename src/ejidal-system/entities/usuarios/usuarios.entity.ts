@@ -2,11 +2,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  OneToOne,
   OneToMany,
   JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Expediente } from '../expedientes/expediente.entity';
 import { Empleado } from '../empleados/empleados.entity';
 import { Ejidatario } from '../ejidatarios/ejidatarios.entity';
 import { Servicio } from '../servicios/servicios.entity';
@@ -29,25 +29,22 @@ export class Usuario {
   @Field(() => String)
   @Column()
   rol: string;
-  
+
   @Field(() => String)
   @Column({ type: 'mediumtext' })
   imagen: string;
 
-
-
   @Field(() => Empleado)
-  @OneToMany(() => Empleado, (empleado) => empleado.usuario)
-  @JoinColumn({ name: 'id_constancia' })
+  @OneToOne(() => Empleado, (empleado) => empleado.usuario)
+  @JoinColumn({ name: 'id_empleado' })
   empleado: Empleado;
 
   @Field(() => Ejidatario)
-  @OneToMany(() => Ejidatario, (ejidatario) => ejidatario.usuario)
+  @OneToOne(() => Ejidatario, (ejidatario) => ejidatario.usuario)
   @JoinColumn({ name: 'id_ejidatario' })
   ejidatario: Ejidatario;
 
-  @Field(() => Servicio)
+  @Field(() => [Servicio])
   @OneToMany(() => Servicio, (servicio) => servicio.usuario)
-  @JoinColumn({ name: 'id_servicio' })
-  servicio: Servicio;
+  servicio: Servicio[];
 }

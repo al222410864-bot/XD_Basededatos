@@ -3,7 +3,7 @@ export { CesionService } from './Cesion/cesion.service';
 export { ConstanciaService } from './Constancias/constancia.service';
 export { DerechosService } from './Derechos/derechos.service';
 export { DeslindeService } from './Deslindes/deslinde.service';
-export { DetalleService } from './Detalles/destalle.service';
+export { DetalleService } from './Detalles/detalle.service';
 export { EjidatarioService } from './Ejidatarios/ejidatarios.service';
 export { EjidoService } from './Ejido/ejido.service';
 export { EmpleadoService } from './Empleados/empleado.service';

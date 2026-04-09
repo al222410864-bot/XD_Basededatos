@@ -2,17 +2,17 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
   OneToMany,
   JoinColumn,
-} from "typeorm";
-import { ObjectType, Field, ID } from "@nestjs/graphql";
-import { Ejido } from "../ejidos/ejidos.entity";
-import { Parcela } from "../parcelas/parcelas.entity";
-import { Estado } from "../estados/estados.entity";
+  ManyToOne,
+} from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Ejido } from '../ejidos/ejidos.entity';
+import { Parcela } from '../parcelas/parcelas.entity';
+import { Estado } from '../estados/estados.entity';
 
 @ObjectType()
-@Entity("municipios")
+@Entity('municipios')
 export class Municipio {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -34,18 +34,16 @@ export class Municipio {
   @Column()
   territorio: string;
 
-  @Field(() => Ejido)
+  @Field(() => [Ejido])
   @OneToMany(() => Ejido, (ejido) => ejido.municipio)
-  @JoinColumn({ name: "id_ejido" })
-  ejido: Ejido;
+  ejido: Ejido[];
 
-  @Field(() => Parcela)
+  @Field(() => [Parcela])
   @OneToMany(() => Parcela, (parcela) => parcela.municipio)
-  @JoinColumn({ name: "id_parcela" })
-  parcela: Parcela;
+  parcela: Parcela[];
 
   @Field(() => Estado)
-  @OneToMany(() => Estado, (estado) => estado.municipio)
-  @JoinColumn({ name: "id_estado" })
+  @ManyToOne(() => Estado, (estado) => estado.municipio)
+  @JoinColumn({ name: 'id_estado' })
   estado: Estado;
 }

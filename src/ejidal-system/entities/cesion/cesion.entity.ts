@@ -6,24 +6,24 @@ import {
   OneToMany,
   ManyToMany,
   ManyToOne,
-} from "typeorm";
-import { ObjectType, Field, ID } from "@nestjs/graphql";
-import { JoinColumn } from "typeorm";
-import { Derecho } from "../derechos/derechos.entity";
-import { Expediente } from "../expedientes/expediente.entity";
-
+  JoinTable,
+  JoinColumn,
+} from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Derecho } from '../derechos/derechos.entity';
+import { Expediente } from '../expedientes/expediente.entity';
 
 @ObjectType()
-@Entity("cesiones")
+@Entity('cesiones')
 export class Cesion {
-  @Field(() => ID)  
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
   id_cesion: number;
 
   @Field(() => String)
   @Column()
   titular: string;
-  
+
   @Field(() => String)
   @Column()
   cesionario: string;
@@ -32,17 +32,13 @@ export class Cesion {
   @Column()
   testigos: string;
 
-  @Field (()=> Derecho)
-  @ManyToMany (() => Derecho, (derecho) => derecho.cesion)
-  @JoinColumn({name : 'id_derechos'})
-  derecho: Derecho
+  @Field(() => [Derecho])
+  @ManyToMany(() => Derecho, (derecho) => derecho.cesion)
+  @JoinTable()
+  derecho: Derecho[];
 
-    @Field (() => Expediente)
-  @ManyToOne (()=> Expediente, (expediente) =>expediente.cesion)
-  @JoinColumn ({name : 'id_expediente'})
-  expediente: Expediente
-  
+  @Field(() => Expediente)
+  @ManyToOne(() => Expediente, (expediente) => expediente.cesion)
+  @JoinColumn({ name: 'id_expediente' })
+  expediente: Expediente;
 }
-
-
-

@@ -2,15 +2,14 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
-  OneToMany,
+  ManyToOne,
   JoinColumn,
-} from "typeorm";
-import { ObjectType, Field, ID } from "@nestjs/graphql";
-import { Expediente } from "../expedientes/expediente.entity";
+} from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Expediente } from '../expedientes/expediente.entity';
 
 @ObjectType()
-@Entity("constancias")
+@Entity('constancias')
 export class Constancia {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -23,15 +22,13 @@ export class Constancia {
   @Field(() => String)
   @Column()
   motivo: string;
-  
+
   @Field(() => String)
-  @Column({unique:true})
+  @Column({ unique: true })
   folio: string;
 
-    @Field (() => Expediente)
-  @OneToMany (()=> Expediente, (expediente) =>expediente.constancia)
-  @JoinColumn ({name : 'id_expediente'})
-  expediente: Expediente
-
+  @Field(() => Expediente)
+  @ManyToOne(() => Expediente, (expediente) => expediente.constancia)
+  @JoinColumn({ name: 'id_expediente' })
+  expediente: Expediente;
 }
-

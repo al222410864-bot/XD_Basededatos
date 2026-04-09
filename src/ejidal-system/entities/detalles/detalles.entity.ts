@@ -2,15 +2,14 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
-  OneToMany,
+  ManyToOne,
   JoinColumn,
-} from "typeorm";
-import { ObjectType, Field, ID } from "@nestjs/graphql";
-import { Pago } from "../pagos/pagos.entity";
+} from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Pago } from '../pagos/pagos.entity';
 
 @ObjectType()
-@Entity("detalles")
+@Entity('detalles')
 export class Detalle {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -29,7 +28,7 @@ export class Detalle {
   hora: Date;
 
   @Field(() => Pago)
-  @OneToMany(() => Pago, (pago) => pago.detalle)
-  @JoinColumn({ name: "id_pago" })
+  @ManyToOne(() => Pago, (pago) => pago.detalle)
+  @JoinColumn({ name: 'id_pago' })
   pago: Pago;
 }

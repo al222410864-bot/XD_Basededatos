@@ -3,21 +3,20 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToOne,
-  OneToMany,
   ManyToMany,
   JoinColumn,
-} from "typeorm";
-import { ObjectType, Field, ID } from "@nestjs/graphql";
-import { Cesion } from "../cesion/cesion.entity";
-import { Ejido } from "../ejidos/ejidos.entity";
-import { Parcela } from "../parcelas/parcelas.entity";
-import { Deslinde } from "../deslindes/deslindes.entity";
-import { Certificado } from "../certificados/certificados.entity";
-import { Persona } from "../personas/personas.entity";
-
+  OneToMany,
+} from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Cesion } from '../cesion/cesion.entity';
+import { Ejido } from '../ejidos/ejidos.entity';
+import { Parcela } from '../parcelas/parcelas.entity';
+import { Deslinde } from '../deslindes/deslindes.entity';
+import { Certificado } from '../certificados/certificados.entity';
+import { Persona } from '../personas/personas.entity';
 
 @ObjectType()
-@Entity("derechos")
+@Entity('derechos')
 export class Derecho {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -27,33 +26,27 @@ export class Derecho {
   @Column()
   acuerdos: string;
 
-  @Field(() => Cesion)
+  @Field(() => [Cesion])
   @ManyToMany(() => Cesion, (cesion) => cesion.derecho)
-  @JoinColumn({ name: "id_derecho" })
-  cesion: Cesion;
+  cesion: Cesion[];
 
-  @Field(() => Ejido)
+  @Field(() => [Ejido])
   @ManyToMany(() => Ejido, (ejido) => ejido.derecho)
-  @JoinColumn({ name: "id_ejido" })
-  ejido: Ejido;
+  ejido: Ejido[];
 
-  @Field(() => Parcela)
+  @Field(() => [Parcela])
   @ManyToMany(() => Parcela, (parcela) => parcela.derecho)
-  @JoinColumn({ name: "id_parcela" })
-  parcela: Parcela;
+  parcela: Parcela[];
 
-  @Field(() => Deslinde)
+  @Field(() => [Deslinde])
   @ManyToMany(() => Deslinde, (deslinde) => deslinde.derecho)
-  @JoinColumn({ name: "id_deslinde" })
-  deslinde: Deslinde;
+  deslinde: Deslinde[];
 
-  @Field(() => Certificado)
+  @Field(() => [Certificado])
   @ManyToMany(() => Certificado, (certificado) => certificado.derecho)
-  @JoinColumn({ name: "id_certificado" })
-  certificado: Certificado;
+  certificado: Certificado[];
 
-  @Field(() => Persona)
+  @Field(() => [Persona])
   @ManyToMany(() => Persona, (persona) => persona.derecho)
-  @JoinColumn({ name: "id_persona" })
-  persona: Persona;
+  persona: Persona[];
 }

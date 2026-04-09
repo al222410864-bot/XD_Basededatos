@@ -2,17 +2,17 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
   OneToMany,
   JoinColumn,
   ManyToMany,
-} from "typeorm";
-import { ObjectType, Field, ID } from "@nestjs/graphql";
-import { Derecho } from "../derechos/derechos.entity";
-import { Expediente } from "../expedientes/expediente.entity";
+  JoinTable,
+} from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Derecho } from '../derechos/derechos.entity';
+import { Expediente } from '../expedientes/expediente.entity';
 
 @ObjectType()
-@Entity("personas")
+@Entity('personas')
 export class Persona {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -30,13 +30,12 @@ export class Persona {
   @Column()
   ap_m: string;
 
-  @Field(() => Derecho)
+  @Field(() => [Derecho])
   @ManyToMany(() => Derecho, (derecho) => derecho.persona)
-  @JoinColumn({ name: "id_derecho" })
-  derecho: Derecho;
+  @JoinTable()
+  derecho: Derecho[];
 
-     @Field (() => Expediente)
-    @OneToMany (()=> Expediente, (expediente) =>expediente.persona)
-    @JoinColumn ({name : 'id_expediente'})
-    expediente: Expediente
+  @Field(() => [Expediente])
+  @OneToMany(() => Expediente, (expediente) => expediente.persona)
+  expediente: Expediente[];
 }

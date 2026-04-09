@@ -4,17 +4,17 @@ import {
   Column,
   OneToMany,
   JoinColumn,
-} from "typeorm";
-import { ObjectType, Field, ID } from "@nestjs/graphql";
-import { Certificado } from "../certificados/certificados.entity";
-import { Deslinde } from "../deslindes/deslindes.entity";
-import { Municipio } from "../municipios/municipios.entity";
-import { Ejidatario } from "../ejidatarios/ejidatarios.entity";
-import { Derecho } from "../derechos/derechos.entity";
-
+  ManyToOne,
+} from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Certificado } from '../certificados/certificados.entity';
+import { Deslinde } from '../deslindes/deslindes.entity';
+import { Municipio } from '../municipios/municipios.entity';
+import { Ejidatario } from '../ejidatarios/ejidatarios.entity';
+import { Derecho } from '../derechos/derechos.entity';
 
 @ObjectType()
-@Entity("parcelas")
+@Entity('parcelas')
 export class Parcela {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
@@ -28,29 +28,25 @@ export class Parcela {
   @Column()
   colindancias: string;
 
-  @Field(() => Certificado)
+  @Field(() => [Certificado])
   @OneToMany(() => Certificado, (certificado) => certificado.parcela)
-  @JoinColumn({ name: "id_parcela" })
-  certificado: Certificado;
+  certificado: Certificado[];
 
-  @Field(() => Deslinde)
+  @Field(() => [Deslinde])
   @OneToMany(() => Deslinde, (deslinde) => deslinde.parcela)
-  @JoinColumn({ name: "id_deslinde" })
-  deslinde: Deslinde;
+  deslinde: Deslinde[];
 
   @Field(() => Municipio)
-  @OneToMany(() => Municipio, (municipio) => municipio.parcela)
-  @JoinColumn({ name: "id_municipio" })
+  @ManyToOne(() => Municipio, (municipio) => municipio.parcela)
+  @JoinColumn({ name: 'id_municipio' })
   municipio: Municipio;
 
   @Field(() => Ejidatario)
-  @OneToMany(() => Ejidatario, (ejidatario) => ejidatario.parcela)
-  @JoinColumn({ name: "id_ejidatario" })
+  @ManyToOne(() => Ejidatario, (ejidatario) => ejidatario.parcela)
+  @JoinColumn({ name: 'id_ejidatario' })
   ejidatario: Ejidatario;
 
-    @Field(() => Derecho)
+  @Field(() => [Derecho])
   @OneToMany(() => Derecho, (derecho) => derecho.parcela)
-  @JoinColumn({ name: "id_derecho" })
-  derecho: Derecho;
-
+  derecho: Derecho[];
 }
