@@ -11,8 +11,13 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: '50mb' }));
 
   // Tu configuración de CORS que ya debes tener
-  app.enableCors(); 
+  app.enableCors(
+    {
+      origin:(origin,callback) => callback(null,origin),
+      credentials:true
+    }
+  ); 
 
-  await app.listen(3000);
+  app.listen(3000,'0.0.0.0'); 
 }
 bootstrap();

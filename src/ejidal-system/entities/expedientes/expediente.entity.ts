@@ -4,6 +4,7 @@ import {
   Column,
   OneToOne,
   OneToMany,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
@@ -33,9 +34,10 @@ export class Expediente {
   @OneToMany(() => Constancia, (constancia) => constancia.expediente)
   constancia: Constancia[];
 
-  @Field(() => [Persona])
-  @OneToMany(() => Persona, (persona) => persona.expediente)
-  persona: Persona[];
+  @Field(() => Persona, { nullable: true })
+  @ManyToOne(() => Persona, (persona) => persona.expediente, { nullable: true })
+  @JoinColumn({ name: 'persona_id' })
+  persona: Persona;
 
   @Field(() => [Cesion])
   @OneToMany(() => Cesion, (cesion) => cesion.expediente)
@@ -45,7 +47,8 @@ export class Expediente {
   @OneToMany(() => Deslinde, (deslinde) => deslinde.expediente)
   deslinde: Deslinde[];
 
-  @Field(() => [Certificado])
-  @OneToMany(() => Certificado, (certificado) => certificado.expediente)
-  certificado: Certificado[];
+  @Field(() => Certificado, { nullable: true })
+  @ManyToOne(() => Certificado, (certificado) => certificado.expediente, { nullable: true })
+  @JoinColumn({ name: 'certificado_id' })
+  certificado: Certificado;
 }

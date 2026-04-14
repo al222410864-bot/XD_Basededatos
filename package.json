@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@apollo/client": "^4.1.6",
+    "@apollo/client": "^4.1.7",
     "@apollo/server": "^5.4.0",
     "@as-integrations/express5": "^1.1.2",
     "@nestjs/apollo": "^13.2.4",
@@ -43,11 +43,13 @@
     "graphql-scalars": "^1.25.0",
     "helmet": "^8.1.0",
     "ioredis": "^5.10.0",
+    "leaflet": "^1.9.4",
     "mongoose": "^9.3.0",
     "mysql2": "^3.19.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "pg": "^8.20.0",
+    "react-leaflet": "^5.0.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.28"
@@ -61,6 +63,7 @@
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
+    "@types/leaflet": "^1.9.21",
     "@types/mocha": "^10.0.10",
     "@types/node": "^22.10.7",
     "@types/passport-jwt": "^4.0.1",

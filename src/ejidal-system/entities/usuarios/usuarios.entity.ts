@@ -31,7 +31,7 @@ export class Usuario {
   rol: string;
 
   @Field(() => String)
-  @Column({ type: 'mediumtext' })
+  @Column({ type: 'text', nullable: true })
   imagen: string;
 
   @Field(() => Empleado)

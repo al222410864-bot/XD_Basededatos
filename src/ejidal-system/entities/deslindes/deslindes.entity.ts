@@ -33,7 +33,7 @@ export class Deslinde {
   expediente: Expediente;
 
   @Field(() => Parcela)
-  @ManyToOne(() => Parcela, (parcela) => parcela.deslinde)
+  @ManyToOne(() => Parcela, (parcela) => parcela.deslinde, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'id_parcela' })
   parcela: Parcela;
 

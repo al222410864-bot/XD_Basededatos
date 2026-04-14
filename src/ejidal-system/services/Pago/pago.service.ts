@@ -197,7 +197,7 @@ export class PagoService {
       LIMIT 12
     `;
 
-    const rows = await this.detalleRepo.query(query, [tipo]);
+    const rows = await this.detalleRepo.query(query);
 
     if (!rows.length) {
       const now = new Date();

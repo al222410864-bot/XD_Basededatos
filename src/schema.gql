@@ -24,10 +24,10 @@ type Expediente {
   demandas: String
   actas: String
   constancia: [Constancia!]!
-  persona: [Persona!]!
+  persona: Persona
   cesion: [Cesion!]!
   deslinde: [Deslinde!]!
-  certificado: [Certificado!]!
+  certificado: Certificado
 }
 
 type Deslinde {
@@ -406,7 +406,7 @@ input CreateDerechoInput {
   parcela_id: Int!
   deslinde_id: Int!
   certificado_id: Int!
-  persona_id: Int!
+  upersona_id: Int!
   acuerdos: String!
 }
 
@@ -416,7 +416,7 @@ input UpdateDerechoInput {
   parcela_id: Int
   deslinde_id: Int
   certificado_id: Int
-  persona_id: Int
+  upersona_id: Int
   acuerdos: String
   id_derecho: ID!
 }

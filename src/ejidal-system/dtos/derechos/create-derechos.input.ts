@@ -25,7 +25,7 @@ export class CreateDerechoInput {
 
   @Field(() => Int)
   @IsNumber()
-  persona_id: number;
+  upersona_id: number;
 
   @Field(() => String)
   @IsString()
