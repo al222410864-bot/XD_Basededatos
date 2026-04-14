@@ -28,6 +28,10 @@ export class Parcela {
   @Column()
   colindancias: string;
 
+  @Field(() => String)
+  @Column({ type: 'text', nullable: true })
+  coordenadas: string;
+
   @Field(() => [Certificado])
   @OneToMany(() => Certificado, (certificado) => certificado.parcela)
   certificado: Certificado[];

@@ -61,6 +61,7 @@ type Parcela {
   id_parcela: ID!
   tamano: String!
   colindancias: String!
+  coordenadas: String!
   certificado: [Certificado!]!
   deslinde: [Deslinde!]!
   municipio: Municipio!
