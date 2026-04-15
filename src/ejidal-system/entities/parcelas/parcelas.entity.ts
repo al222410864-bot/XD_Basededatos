@@ -51,8 +51,8 @@ export class Parcela {
   @OneToMany(() => Deslinde, (deslinde) => deslinde.parcela)
   deslinde: Deslinde[];
 
-  @Field(() => Ejidatario)
-  @ManyToOne(() => Ejidatario, (ejidatario) => ejidatario.parcela)
+  @Field(() => Ejidatario, { nullable: true })
+  @ManyToOne(() => Ejidatario, (ejidatario) => ejidatario.parcela, { nullable: true })
   @JoinColumn({ name: 'id_ejidatario' })
   ejidatario: Ejidatario;
 
