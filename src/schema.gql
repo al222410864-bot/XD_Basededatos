@@ -575,6 +575,7 @@ input CreateParcelaInput {
   ejido_nombre: String!
   tamano: String!
   colindancias: String!
+  coordenadas: String
 }
 
 input UpdateParcelaInput {
@@ -584,6 +585,7 @@ input UpdateParcelaInput {
   ejido_nombre: String
   tamano: String
   colindancias: String
+  coordenadas: String
   id_parcela: ID!
 }
 

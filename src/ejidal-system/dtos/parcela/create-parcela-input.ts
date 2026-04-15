@@ -1,5 +1,5 @@
 import { InputType, Field, Int, ID } from "@nestjs/graphql";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, IsOptional } from "class-validator";
 
 @InputType()
 export class CreateParcelaInput {
@@ -31,4 +31,9 @@ export class CreateParcelaInput {
   @IsString()
   @IsNotEmpty()
   colindancias: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  coordenadas?: string;
 }
