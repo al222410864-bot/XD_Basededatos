@@ -30,17 +30,17 @@ export class Usuario {
   @Column()
   rol: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   @Column({ type: 'text', nullable: true })
   imagen: string;
 
-  @Field(() => Empleado)
-  @OneToOne(() => Empleado, (empleado) => empleado.usuario)
+  @Field(() => Empleado, { nullable: true })
+  @OneToOne(() => Empleado, (empleado) => empleado.usuario, { nullable: true })
   @JoinColumn({ name: 'id_empleado' })
   empleado: Empleado;
 
-  @Field(() => Ejidatario)
-  @OneToOne(() => Ejidatario, (ejidatario) => ejidatario.usuario)
+  @Field(() => Ejidatario, { nullable: true })
+  @OneToOne(() => Ejidatario, (ejidatario) => ejidatario.usuario, { nullable: true })
   @JoinColumn({ name: 'id_ejidatario' })
   ejidatario: Ejidatario;
 
