@@ -1,5 +1,5 @@
 import { InputType, Field, Int, ID } from "@nestjs/graphql";
-import { IsNotEmpty, IsNumber, IsString,  } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 @InputType()
 export class CreateParcelaInput {
@@ -7,9 +7,20 @@ export class CreateParcelaInput {
   @IsNumber()
   ejidatario_id: number;
 
-  @Field(() => Int)
-  @IsNumber()
-  municipio_id: number;
+  @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  estado_nombre: string;
+
+  @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  municipio_nombre: string;
+
+  @Field(() => String)
+  @IsString()
+  @IsNotEmpty()
+  ejido_nombre: string;
 
   @Field(() => String)
   @IsString()
@@ -20,6 +31,4 @@ export class CreateParcelaInput {
   @IsString()
   @IsNotEmpty()
   colindancias: string;
-
-  //doc: ;
 }

@@ -39,32 +39,16 @@ type Deslinde {
   derecho: [Derecho!]!
 }
 
-type Estado {
-  id_estado: ID!
-  nombre: String!
-  territorio: String!
-  municipio: [Municipio!]!
-}
-
-type Municipio {
-  id_municipio: ID!
-  referencia: String!
-  clave_inegi: String!
-  nombre: String!
-  territorio: String!
-  ejido: [Ejido!]!
-  parcela: [Parcela!]!
-  estado: Estado!
-}
-
 type Parcela {
   id_parcela: ID!
   tamano: String!
   colindancias: String!
   coordenadas: String!
+  estado_nombre: String!
+  municipio_nombre: String!
+  ejido_nombre: String!
   certificado: [Certificado!]!
   deslinde: [Deslinde!]!
-  municipio: Municipio!
   ejidatario: Ejidatario!
   derecho: [Derecho!]!
 }
@@ -137,6 +121,24 @@ type Ejidatario {
   usuario: Usuario!
   ejido: Ejido!
   parcela: [Parcela!]!
+}
+
+type Estado {
+  id_estado: ID!
+  nombre: String!
+  territorio: String!
+  municipio: [Municipio!]!
+}
+
+type Municipio {
+  id_municipio: ID!
+  referencia: String!
+  clave_inegi: String!
+  nombre: String!
+  territorio: String!
+  ejido: [Ejido!]!
+  parcela: [Parcela!]!
+  estado: Estado!
 }
 
 type Ejido {
@@ -568,14 +570,18 @@ input UpdatePagoInput {
 
 input CreateParcelaInput {
   ejidatario_id: Int!
-  municipio_id: Int!
+  estado_nombre: String!
+  municipio_nombre: String!
+  ejido_nombre: String!
   tamano: String!
   colindancias: String!
 }
 
 input UpdateParcelaInput {
   ejidatario_id: Int
-  municipio_id: Int
+  estado_nombre: String
+  municipio_nombre: String
+  ejido_nombre: String
   tamano: String
   colindancias: String
   id_parcela: ID!

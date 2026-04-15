@@ -39,7 +39,7 @@ export class Municipio {
   ejido: Ejido[];
 
   @Field(() => [Parcela])
-  @OneToMany(() => Parcela, (parcela) => parcela.municipio)
+  @OneToMany(() => Parcela, (parcela) => parcela.municipio_nombre)
   parcela: Parcela[];
 
   @Field(() => Estado)
