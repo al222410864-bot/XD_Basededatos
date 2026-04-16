@@ -61,9 +61,17 @@ export class ExpedienteService {
     return await this.repository.save(register);
   }
 
-  async remove(id_expediente: number): Promise<boolean> {
-    const result = await this.repository.delete({ id_expediente });
+  async remove(id_expediente: number): Promise<Expediente> {
+    const expediente = await this.repository.findOne({
+      where: { id_expediente },
+      relations: ['persona', 'cesion', 'constancia', 'deslinde', 'certificado'],
+    });
 
-    return result.affected ? result.affected > 0 : false;
+    if (!expediente) {
+      throw new NotFoundException(`Expediente with id: ${id_expediente} not found`);
+    }
+
+    await this.repository.delete({ id_expediente });
+    return expediente;
   }
 }

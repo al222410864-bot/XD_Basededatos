@@ -38,7 +38,7 @@ export class Cesion {
   derecho: Derecho[];
 
   @Field(() => Expediente)
-  @ManyToOne(() => Expediente, (expediente) => expediente.cesion)
+  @ManyToOne(() => Expediente, (expediente) => expediente.cesion, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'id_expediente' })
   expediente: Expediente;
 }
