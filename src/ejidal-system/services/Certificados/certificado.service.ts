@@ -1,4 +1,4 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import {Injectable, NotFoundException, BadRequestException} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
 import { Certificado } from '../../entities/certificados/certificados.entity';
@@ -13,8 +13,15 @@ export class CertificadoService {
   ) {}
 
   async create(data: CreateCertificadoInput): Promise<Certificado> {
-    const register = this.repository.create(data);
-    return await this.repository.save(register);
+    try {
+      const register = this.repository.create(data);
+      return await this.repository.save(register);
+    } catch (error: any) {
+      if (error.code === 'ER_DUP_ENTRY') {
+        throw new BadRequestException('Folio Inválido: Este folio ya está registrado.');
+      }
+      throw error;
+    }
   }
 
   async findAll(): Promise<Certificado[]> {
