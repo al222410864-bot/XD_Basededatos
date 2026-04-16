@@ -20,5 +20,15 @@ export class CreateUsuarioInput {
   @Field(() => String, { nullable: true })
   @IsOptional()
   @IsString()
+  correo?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
+  estado?: string;
+
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  @IsString()
   imagen?: string;
 } 

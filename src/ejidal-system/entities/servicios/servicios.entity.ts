@@ -34,7 +34,7 @@ export class Servicio {
   solicitudes: string;
 
   @Field(() => Usuario)
-  @ManyToOne(() => Usuario, (usuario) => usuario.servicio)
+  @ManyToOne(() => Usuario, (usuario) => usuario.servicio, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'id_usuario' })
   usuario: Usuario;
 

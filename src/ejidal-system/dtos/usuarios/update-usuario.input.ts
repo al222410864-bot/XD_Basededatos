@@ -4,7 +4,7 @@ import { CreateUsuarioInput } from './create-usuario.input';
 
 @InputType()
 export class UpdateUsuarioInput extends PartialType(CreateUsuarioInput) {
-  @Field(() => ID)
+  @Field(() => ID, { nullable: true })
   @IsNumber()
-  id_usuario: number;
+  id_usuario?: number;
 }

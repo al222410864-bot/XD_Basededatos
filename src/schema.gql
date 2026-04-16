@@ -105,6 +105,9 @@ type Usuario {
   nombre_usuario: String!
   contrasena: String!
   rol: String!
+  correo: String
+  estado: String
+  ultimo_acceso: String
   imagen: String
   empleado: Empleado
   ejidatario: Ejidatario
@@ -625,6 +628,8 @@ input CreateUsuarioInput {
   nombre_usuario: String!
   contrasena: String!
   rol: String!
+  correo: String
+  estado: String
   imagen: String
 }
 
@@ -632,6 +637,8 @@ input UpdateUsuarioInput {
   nombre_usuario: String
   contrasena: String
   rol: String
+  correo: String
+  estado: String
   imagen: String
-  id_usuario: ID!
+  id_usuario: ID
 }

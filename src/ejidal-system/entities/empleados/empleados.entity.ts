@@ -37,7 +37,7 @@ export class Empleado {
   funcion: string;
 
   @Field(() => Usuario)
-  @ManyToOne(() => Usuario, (usuario) => usuario.empleado)
+  @ManyToOne(() => Usuario, (usuario) => usuario.empleado, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'id_usuario' })
   usuario: Usuario;
 }

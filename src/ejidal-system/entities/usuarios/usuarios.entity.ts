@@ -31,7 +31,19 @@ export class Usuario {
   rol: string;
 
   @Field(() => String, { nullable: true })
-  @Column({ type: 'text', nullable: true })
+  @Column({ nullable: true })
+  correo: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ default: 'Activo' })
+  estado: string;
+
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'datetime', nullable: true })
+  ultimo_acceso: Date;
+
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'longtext', nullable: true })
   imagen: string;
 
   @Field(() => Empleado, { nullable: true })
