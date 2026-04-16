@@ -23,7 +23,7 @@ export class Pago {
   contribuyente: string;
 
   @Field(() => Servicio)
-  @ManyToOne(() => Servicio, (servicio) => servicio.pago)
+  @ManyToOne(() => Servicio, (servicio) => servicio.pago, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'id_servicio' })
   servicio: Servicio;
 
